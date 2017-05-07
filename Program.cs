@@ -14,10 +14,10 @@ namespace vmake
     {
         public class Options
         {
-            [Option("init", HelpText = "Inits a new vvvv folder", Required = true)]
+            [Option('i', "init", HelpText = "Inits a new vvvv folder", Required = true)]
             public bool doInit { get; set; }
 
-            [Option("o", HelpText = "Opens vvvv right away")]
+            [Option('o', "open", HelpText = "Instantly opens root patch after creation")]
             public bool doOpen { get; set; }
 
             [ParserState]
@@ -33,8 +33,6 @@ namespace vmake
         static void Main(string[] args)
         {
             var options = new Options();
-
-            Greetings();
 
             if(CommandLine.Parser.Default.ParseArguments(args, options))
             {
