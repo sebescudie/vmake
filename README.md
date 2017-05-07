@@ -11,11 +11,11 @@ Howto
 - Add this folder to your system's %PATH% (struggled to make it automagically with a .bat without success :/)
 - Create a new folder for your project and go inside it
 - Open a `cmd` by typing `cmd` in the address bar
-- Type `vmake --init`
-- To directly open your newly created v4p file, add `--o` command argument
+- Type `vmake -i` to init a new project
+- To directly open your newly created v4p file, add `-o` command argument
 
 ```
-vmake --init --o
+vmake -i -o
 ```
 
 Folder structure
