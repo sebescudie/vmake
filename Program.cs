@@ -5,41 +5,50 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using CommandLine;
+using CommandLine.Text;
 
 namespace vmake
 {
     class Program
     {
+        public class Options
+        {
+            [Option("init", HelpText = "Inits a new vvvv folder", Required = true)]
+            public bool doInit { get; set; }
+
+            [Option("o", HelpText = "Opens vvvv right away")]
+            public bool doOpen { get; set; }
+
+            [ParserState]
+            public IParserState LastParserState { get; set; }
+
+            [HelpOption]
+            public string GetUsage()
+            {
+                return HelpText.AutoBuild(this, (HelpText current) => HelpText.DefaultParsingErrorsHandler(this, current));
+            }
+        }
+
         static void Main(string[] args)
         {
+            var options = new Options();
+
             Greetings();
 
-            if(args.Length == 0)
+            if(CommandLine.Parser.Default.ParseArguments(args, options))
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("What can I do for you?");
-                Console.WriteLine("Type \"vmake init\" to start a new project");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            else
-            {
-                // Make project
-                if(args[0] == "init")
+                if(options.doInit)
                 {
                     BuildStructure();
                 }
-                else
-                {
-                    Console.WriteLine("Unknown command");
-                }
 
-                // Start v4p
-                if(args.Length == 2 && args[1] == "/o")
+                if(options.doOpen)
                 {
                     Process.Start("root.v4p");
                 }
             }
-
+            
             Environment.Exit(0);
         }
 
