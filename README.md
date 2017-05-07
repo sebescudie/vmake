@@ -15,7 +15,7 @@ Howto
 vmake init /o
 ```
 
-Howto
+Folder structure
 ----------
 This is the project structure I'm used to for my projects. Might not fit everyone's needs or habits but that's the way I roll :)
 
