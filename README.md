@@ -7,7 +7,7 @@ Howto
 ----------
 
 - Clone the repo and build or download [latest version](http://sebescudie.fr/files/vmake.7z)
-- Put `vmake.exe` somewhere on your hard drive (e.g `C:\vmake`)
+- Put `vmake.exe` and `CommandLine.dll`  somewhere on your hard drive (e.g `C:\vmake`)
 - Add this folder to your system's %PATH% (struggled to make it automagically with a .bat without success :/)
 - Create a new folder for your project and go inside it
 - Open a `cmd` by typing `cmd` in the address bar
