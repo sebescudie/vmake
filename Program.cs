@@ -174,10 +174,13 @@ namespace vmake
             {
                 // init
                 Repository.Init(_path);
+                
                 // create readme
-                File.WriteAllText(Path.Combine(_path, "README.md"), "This is the readme file");
+                string currentFolder = new DirectoryInfo(_path).Name;
+                File.WriteAllText(Path.Combine(_path, "README.md"), "# " + currentFolder);
+                
                 // create gitignore
-                File.WriteAllText(Path.Combine(_path, ".gitignore"), "This is the gitignore file");
+                File.WriteAllText(Path.Combine(_path, ".gitignore"), "*~.xml" + Environment.NewLine + "bin/");
             }
             else
             {
