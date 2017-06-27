@@ -5,8 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+
 using CommandLine;
 using CommandLine.Text;
+
+using LibGit2Sharp;
+using LibGit2Sharp.Handlers;
 
 namespace vmake
 {
@@ -19,6 +23,9 @@ namespace vmake
 
             [Option('o', "open", HelpText = "Instantly opens root patch after creation")]
             public bool doOpen { get; set; }
+
+            [Option('g', "git", HelpText = "Inits a git repo in the current folder")]
+            public bool doRepo { get; set; }
 
             [ParserState]
             public IParserState LastParserState { get; set; }
@@ -44,6 +51,11 @@ namespace vmake
                 if(options.doOpen)
                 {
                     Process.Start("root.v4p");
+                }
+
+                if(options.doRepo)
+                {
+                    BuildGitRepo(GetCurrentPath());
                 }
             }
             
@@ -151,6 +163,26 @@ namespace vmake
 
             // Create empty .v4p file
             CreateEmptyV4P(appPath);
+        }
+
+        /// <summary>
+        /// Creates a git repo
+        /// </summary>
+        private static void BuildGitRepo(string _path)
+        {
+            if(!Repository.IsValid(_path))
+            {
+                // init
+                Repository.Init(_path);
+                // create readme
+                File.WriteAllText(Path.Combine(_path, "README.md"), "This is the readme file");
+                // create gitignore
+                File.WriteAllText(Path.Combine(_path, ".gitignore"), "This is the gitignore file");
+            }
+            else
+            {
+                Console.WriteLine("This is folder is already a git repo!");
+            }
         }
 
         #endregion METHODS
